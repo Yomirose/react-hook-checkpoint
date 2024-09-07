@@ -3,8 +3,10 @@ import MovieList from './components/MovieList';
 import Filter from './components/Filter';
 import AddMovie from './components/AddMovie';
 import './App.css';
+import Modal from './components/modal';
 
 function App() {
+  const [show, setShow] = useState(false);
   const [movies, setMovies] = useState([
     {
       title: 'Inception',
@@ -14,8 +16,13 @@ function App() {
     },
   ]);
 
+const closeModal = () => {
+  setShow(false)
+}
+
   const handleAddMovie = (movie) => {
     setMovies([...movies, movie]);
+    setShow(true);
   };
 
   const handleFilter = (filter) => {
@@ -43,6 +50,7 @@ function App() {
       <Filter onFilter={handleFilter} />
       <AddMovie onAdd={handleAddMovie} />
       <MovieList movies={movies} />
+      {show && < Modal  handleCloseModal={closeModal} />}
     </div>
   );
 }
